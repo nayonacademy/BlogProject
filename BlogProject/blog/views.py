@@ -3,7 +3,7 @@ from django.http import HttpResponse
 # Create your views here.
 
 def index(request):
-    return HttpResponse("Hello Index blog page")
+    return render(request, 'blog/index.html')
 
 def postDetails(request, pk):
-    return HttpResponse("I am post details page")
+    return render(request, 'blog/index.html')

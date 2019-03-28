@@ -3,16 +3,16 @@ from django.http import HttpResponse
 # Create your views here.
 
 def bloglogin(request):
-    return HttpResponse("I am login page")
+    return render(request, 'dashboard/login.html')
 
 def showAllpost(request):
-    return HttpResponse("Show all post in a table")
+    return render(request, 'dashboard/allpost.html')
 
 def updatePost(request, pk):
-    return HttpResponse("I am update post view")
+    return render(request, 'dashboard/addpost.html')
 
 def newPost(request):
-    return HttpResponse("I am add new post")
+    return render(request, 'dashboard/addpost.html')
 
 def settings(request):
     return HttpResponse("I am settings view")
