@@ -1,0 +1,114 @@
+{% extends 'dashboard/base.html' %}
+{% block title %}Category{% endblock %}
+{% load humanize %}
+{% block content %}
+<ol class="breadcrumb">
+          <li class="breadcrumb-item">
+            <a href="#">Dashboard</a>
+          </li>
+          <li class="breadcrumb-item active">Overview</li>
+        </ol>
+<!-- Button trigger modal -->
+<button type="button" class="btn btn-primary btn-sm float-right" data-toggle="modal" data-target="#exampleModal">
+  Create New Category
+</button>
+
+<!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Create Category</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+      <form action="" method="POST">
+        {% csrf_token %}
+          <div class="form-group">
+            <label for="exampleInputEmail1">Category Name</label>
+            <input type="text" name="category_name" class="form-control" id="exampleInputEmail1" >
+          </div>
+
+          <div class="form-group">
+            <label for="exampleInputEmail1">Category Description</label>
+            <textarea class="form-control" name="category_description" id="exampleInputEmail1" ></textarea>
+          </div>
+
+           <div class="form-group">
+            <label for="exampleInputEmail1">Category Status</label>
+                    <select class="form-control" name="category_status">
+                        <option>Active</option>
+                        <option>Inactive</option>
+                    </select>
+          </div>
+
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+        <button type="submit" name="submit" class="btn btn-success">Save</button>
+      </div>
+    </div>
+    </form>
+  </div>
+</div>
+<div class="card mb-3 mt-5">
+          <div class="card-header">
+            <i class="fas fa-table"></i>
+            All Category List</div>
+          <div class="card-body">
+            <div class="table-responsive">
+              <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                <thead>
+                  <tr>
+                    <th>Sl No</th>
+                    <th>Category Name</th>
+                    <th>Description</th>
+                    <th>Status</th>
+                    <th>Publish Date</th>
+                    <th>Action</th>
+                  </tr>
+                </thead>
+                <tfoot>
+                  <tr>
+                    <th>Sl No</th>
+                    <th>Category Name</th>
+                    <th>Description</th>
+                    <th>Status</th>
+                    <th>Publish Date</th>
+                    <th>Action</th>
+                  </tr>
+                </tfoot>
+                <tbody>
+
+                  {% for category_data_value in category_data %}
+                  <tr>
+                    <td>{{forloop.counter}}</td>
+                    <td>{{category_data_value.category_name}}</td>
+                    <td>{{category_data_value.category_description | slice:":25"}}</td>
+                    <td>
+                     {% if category_data_value.category_status == 'Active' %}
+                        <span class="text-success"><i class="fa fa-check-circle"></i>&nbsp;{{ category_data_value.category_status }}</span>
+                     {% else %}
+                        <span  class="text-danger"><i class="fa fa-times-circle"></i>&nbsp;{{ category_data_value.category_status }}</span>
+                     {% endif %}
+                    </td>
+                    <td> <i class="fa fa-clock"></i>&nbsp;{{ category_data_value.updated_at| timesince }} Ago </td>
+                    <td>
+                        <button class="btn btn-danger">Delete</button>
+                        <button class="btn btn-info">Edit</button>
+                        <button class="btn btn-success">Active</button>
+                    </td>
+                  </tr>
+                  {% endfor %}
+                </tbody>
+              </table>
+            </div>
+          </div>
+          <div class="card-footer small text-muted">Updated yesterday at 11:59 PM</div>
+        </div>
+
+      </div>
+
+{% endblock content%}
