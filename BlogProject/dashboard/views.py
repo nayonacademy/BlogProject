@@ -3,6 +3,7 @@ from django.http import HttpResponse,HttpResponseRedirect
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import authenticate, login, logout
 from django.urls import reverse
+from .models import *
 # Create your views here.
 
 def bloglogin(request):
@@ -36,7 +37,15 @@ def updatePost(request, pk):
 
 @login_required
 def newPost(request):
-    return render(request, 'dashboard/create_post.html')
+    if request.method == "GET":
+        return render(request, 'dashboard/create_post.html')
+
+    if request.method == "POST":
+        title = request.POST.get('post_title',None)
+        desc = request.POST.get("post_des",None)
+        print(title, desc)
+        BlogPost.objects.create(title=title,details=desc)
+        return HttpResponseRedirect(reverse('showallpost'))
 
 @login_required
 def settings(request):
