@@ -1,0 +1,49 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="">
+  <meta name="author" content="">
+
+  <title>{% block title%}{% endblock title %}</title>
+
+  <!-- Custom fonts for this template-->
+   {% include 'layouts/css.html' %}
+
+</head>
+
+<body id="page-top">
+
+   {% include 'layouts/nav.html' %}
+
+  <div id="wrapper">
+
+    <!-- Sidebar -->
+    {% include 'layouts/admin_sidebar.html' %}
+
+<div id="content-wrapper">
+<div class="container-fluid">
+    {% block content %}
+
+    {% endblock content %}
+    </div>
+ </div>
+  <!-- /#wrapper -->
+
+  <!-- Scroll to Top Button-->
+  <a class="scroll-to-top rounded" href="#page-top">
+    <i class="fas fa-angle-up"></i>
+  </a>
+
+  <!-- Logout Modal-->
+  {% include 'layouts/logout_modal.html' %}
+
+  <!-- Bootstrap core JavaScript-->
+  {% include 'layouts/admin_js.html' %}
+
+ {% include 'layouts/admin_footer.html' %}

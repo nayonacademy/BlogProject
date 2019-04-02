@@ -1,0 +1,52 @@
+{% extends 'dashboard/base.html' %}
+{% block title %}Post List{% endblock %}
+{% load humanize %}
+{% block content %}
+<div class="card mb-3">
+          <div class="card-header">
+            <i class="fas fa-table"></i>
+            All Post List</div>
+          <div class="card-body">
+            <div class="table-responsive">
+              <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                <thead>
+                  <tr>
+                    <th>Sl No</th>
+                    <th>Post Title</th>
+                    <th>Post Details</th>
+                    <th>Published At </th>
+                    <th>Action</th>
+                  </tr>
+                </thead>
+                <tfoot>
+                  <tr>
+                    <th>Sl No</th>
+                    <th>Post Title</th>
+                    <th>Post Details</th>
+                    <th>Published At </th>
+                    <th>Action</th>
+                  </tr>
+                </tfoot>
+                <tbody>
+                {% for post_value in all_post %}
+                  <tr>
+                    <td>{{ forloop.counter }}</td>
+                    <td>{{ post_value.title }}</td>
+                    <td>{{ post_value.details|slice:":25"}}...</td>
+                    <td> <i class="fa fa-clock"></i>&nbsp; {{ post_value.publish_date | timesince  }} Ago </td>
+                    <td>
+                            <button class="btn btn-info">Edit</button>
+                            <button class="btn btn-danger">Delete</button>
+                    </td>
+                  </tr>
+                {% endfor %}
+                </tbody>
+              </table>
+            </div>
+          </div>
+          <div class="card-footer small text-muted">Updated yesterday at 11:59 PM</div>
+        </div>
+
+      </div>
+
+{% endblock content %}

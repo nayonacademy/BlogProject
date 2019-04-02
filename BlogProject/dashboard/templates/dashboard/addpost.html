@@ -1,0 +1,31 @@
+{% extends 'dashboard/base.html' %}
+{% block title %} All Post {% endblock title%}
+{% block content %}
+<div class="container">
+    <div class="col-md-6">
+    <div class="card">
+        <div class="card-header">Add a post</div>
+        <div class="card-body">
+                <div class="col-md-6">
+                        <div class="form-area">  
+                            <form role="form">
+                            <br style="clear:both">
+                                        <h3 style="margin-bottom: 25px; text-align: center;">create post</h3>
+                                        <div class="form-group">
+                                            <input type="text" class="form-control" id="title" name="title" placeholder="titel" required>
+                                        </div>
+                                        
+                                        <div class="form-group">
+                                        <textarea class="form-control" type="textarea" id="body" placeholder="Body" maxlength="140" rows="7"></textarea>
+                                                                
+                                        </div>
+                                
+                            <button type="button" id="submit" name="submit" class="btn btn-primary pull-right">upload</button>
+                            </form>
+                        </div>
+                    </div>
+                    </div>
+        </div>
+        </div>
+</div>
+{% endblock content%}

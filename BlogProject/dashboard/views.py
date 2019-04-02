@@ -1,18 +1,85 @@
 from django.shortcuts import render
-from django.http import HttpResponse
+from django.http import HttpResponse, HttpResponseRedirect
+from django.contrib.auth.decorators import login_required
+from django.contrib.auth import authenticate, login, logout
+from django.urls import reverse
+from .models import *
+
+
 # Create your views here.
 
 def bloglogin(request):
-    return HttpResponse("I am login page")
+    if request.method == 'GET':
+        return render(request, 'dashboard/login.html')
+    elif request.method == 'POST':
+        username = request.POST.get('username', None)
+        password = request.POST.get('password', None)
+        user = authenticate(username=username, password=password)
+        if user is not None:
+            login(request, user)
+            return HttpResponseRedirect(reverse('dashboard'))
+        else:
+            return HttpResponseRedirect(reverse('login'))
 
+
+@login_required
+def bloglogout(request):
+    logout(request)
+    context = {
+        'message': 'Successfully Logout'
+    }
+    return render(request, 'dashboard/login.html', context)
+
+
+@login_required
 def showAllpost(request):
-    return HttpResponse("Show all post in a table")
+    all_post = BlogPost.objects.all()
+    context = {
+        'all_post': all_post
+    }
+    return render(request, 'dashboard/post_list.html', context)
 
+
+@login_required
 def updatePost(request, pk):
-    return HttpResponse("I am update post view")
+    return render(request, 'dashboard/update_post.html')
 
+
+@login_required
 def newPost(request):
-    return HttpResponse("I am add new post")
+    if request.method == "GET":
+        return render(request, 'dashboard/create_post.html')
 
+    if request.method == "POST":
+        title = request.POST.get('post_title', None)
+        desc = request.POST.get("post_des", None)
+        print(title, desc)
+        BlogPost.objects.create(title=title, details=desc)
+        return HttpResponseRedirect(reverse('showallpost'))
+
+
+@login_required
+def category(request):
+    if request.method == 'POST':
+        category_name = request.POST.get('category_name', None)
+        category_description = request.POST.get('category_description', None)
+        category_status = request.POST.get('category_status', None)
+        Category.objects.create(category_name=category_name, category_description=category_description,
+                                category_status=category_status)
+        return HttpResponseRedirect(reverse('category'))
+    else:
+        category_data = Category.objects.all()
+        context = {
+            'category_data': category_data
+        }
+        return render(request, 'dashboard/create_category.html', context)
+
+
+@login_required
 def settings(request):
     return HttpResponse("I am settings view")
+
+
+@login_required
+def dashboard(request):
+    return render(request, 'dashboard/admin_home.html')
