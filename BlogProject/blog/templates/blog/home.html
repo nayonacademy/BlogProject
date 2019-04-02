@@ -7,10 +7,10 @@
       <hr>
 
       {% for i in allpost %}
-      <h2>{{i.title}}</h2>
+      <a href="{% url 'details' i.pk %}"> <h2>{{i.title}}</h2> </a>
       <h5><span class="text-default"><i class="far fa-clock"></i> Post by Jane Dane, {{i.publish_date}}</h5>
       <h5><span class="label label-danger">Food</span> <span class="label label-primary">Ipsum</span></h5><br>
-      <p>{{i.details}}</p>
+      <p>{{i.details|slice:'200'}}</p>
       <br><br>
       <hr>
         {% endfor %}

@@ -11,4 +11,8 @@ def index(request):
     return render(request, 'blog/home.html',context)
 
 def postDetails(request, pk):
-    return render(request, 'blog/post_details.html')
+    details_post = BlogPost.objects.filter(id=pk)
+    context = {
+        'details_post': details_post
+    }
+    return render(request, 'blog/post_details.html',context)
