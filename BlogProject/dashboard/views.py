@@ -72,6 +72,20 @@ def postdelete(request, pk):
 
 
 @login_required
+def postupdate(request,pk):
+    if request.method == 'GET':
+        postdata = BlogPost.objects.filter(pk=pk)
+        print(postdata.first().category)
+        allcategory = Category.objects.filter(category_status='Active')
+        context = {
+            'post_data': postdata,
+            'category_list': allcategory
+        }
+        return render(request, 'dashboard/create_post.html',context)        
+
+
+
+@login_required
 def category(request):
     if request.method == 'POST':
         category_name = request.POST.get('category_name', None)

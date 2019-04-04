@@ -35,7 +35,7 @@
                     <td>{{ post_value.details|slice:":25"}}...</td>
                     <td> <i class="fa fa-clock"></i>&nbsp; {{ post_value.publish_date | timesince  }} Ago </td>
                     <td>
-                            <button class="btn btn-info">Edit</button>
+                            <a href="{% url 'postupdate'  post_value.pk %}"> <button class="btn btn-info">Edit</button></a>
                             <a href="{% url 'postdelete' post_value.pk %}"> <button class="btn btn-danger">Delete</button></a>
                     </td>
                   </tr>
