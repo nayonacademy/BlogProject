@@ -96,7 +96,9 @@
                     </td>
                     <td> <i class="fa fa-clock"></i>&nbsp;{{ category_data_value.updated_at| timesince }} Ago </td>
                     <td>
+                      <a href="{% url 'category_delete' category_data_value.id %}" onclick="return confirm('Are You Sure?')">
                         <button class="btn btn-danger">Delete</button>
+                      </a>
                         <button class="btn btn-info">Edit</button>
                         <button class="btn btn-success">Active</button>
                     </td>
