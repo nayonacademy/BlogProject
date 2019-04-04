@@ -48,7 +48,11 @@ def updatePost(request, pk):
 @login_required
 def newPost(request):
     if request.method == "GET":
-        return render(request, 'dashboard/create_post.html')
+        allcategory = Category.objects.filter(category_status='Active')
+        context = {
+            'category_list': allcategory
+        }
+        return render(request, 'dashboard/create_post.html',context)
 
     if request.method == "POST":
         title = request.POST.get('post_title', None)
