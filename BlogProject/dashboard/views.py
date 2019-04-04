@@ -3,6 +3,7 @@ from django.http import HttpResponse, HttpResponseRedirect
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import authenticate, login, logout
 from django.urls import reverse
+from django.contrib import messages
 from .models import *
 
 
@@ -59,7 +60,15 @@ def newPost(request):
         desc = request.POST.get("post_des", None)
         print(title, desc)
         BlogPost.objects.create(title=title, details=desc)
+        messages.success(request, 'Successfully Add new post')
         return HttpResponseRedirect(reverse('showallpost'))
+
+
+@login_required
+def postdelete(request, pk):
+    BlogPost.objects.filter(pk=pk).delete()
+    messages.info(request, 'Delete post')
+    return HttpResponseRedirect(reverse('showallpost'))
 
 
 @login_required

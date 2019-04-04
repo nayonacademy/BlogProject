@@ -7,6 +7,7 @@ urlpatterns = [
     path('posts', views.showAllpost, name='showallpost'),
     path('category', views.category, name='category'),
     path('posts/<int:pk>', views.updatePost, name='updatePost'),
+    path('posts/delete/<int:pk>', views.postdelete, name='postdelete'),
     path('posts/add', views.newPost, name='newpost'),
     path('settings', views.settings, name='settings')
 ]
