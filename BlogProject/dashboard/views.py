@@ -53,13 +53,14 @@ def newPost(request):
         context = {
             'category_list': allcategory
         }
-        return render(request, 'dashboard/create_post.html',context)
+        return render(request, 'dashboard/create_post.html', context)
 
     if request.method == "POST":
         title = request.POST.get('post_title', None)
         desc = request.POST.get("post_des", None)
-        print(title, desc)
-        BlogPost.objects.create(title=title, details=desc)
+        category_name = request.POST.get("category_name", None)
+        # print(title, desc,category_name)
+        BlogPost.objects.create(title=title, details=desc, category_id=category_name)
         messages.success(request, 'Successfully Add new post')
         return HttpResponseRedirect(reverse('showallpost'))
 
@@ -72,7 +73,7 @@ def postdelete(request, pk):
 
 
 @login_required
-def postupdate(request,pk):
+def postupdate(request, pk):
     if request.method == 'GET':
         postdata = BlogPost.objects.filter(pk=pk)
         print(postdata.first().category)
@@ -81,8 +82,7 @@ def postupdate(request,pk):
             'post_data': postdata,
             'category_list': allcategory
         }
-        return render(request, 'dashboard/create_post.html',context)        
-
+        return render(request, 'dashboard/create_post.html', context)
 
 
 @login_required
@@ -100,6 +100,13 @@ def category(request):
             'category_data': category_data
         }
         return render(request, 'dashboard/create_category.html', context)
+
+
+@login_required
+def category_delete(request, pk):
+    category = Category.objects.filter(pk=pk).delete()
+    messages.info(request, 'Category Deleted !')
+    return HttpResponseRedirect(reverse('category'))
 
 
 @login_required
