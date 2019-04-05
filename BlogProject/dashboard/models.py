@@ -8,9 +8,14 @@ class Category(models.Model):
     created_at=models.DateTimeField(auto_now_add=True)
     updated_at=models.DateTimeField(auto_now=True)
 
+    def __str__(self):
+        return self.category_name
+
+
 class BlogPost(models.Model):
     title = models.CharField(max_length=255)
     details = models.TextField()
+    category = models.ForeignKey(Category, on_delete=models.DO_NOTHING, default=1)
     publish_date = models.DateTimeField(auto_now_add=True)
     update_date = models.DateTimeField(auto_now=True)
     status = models.BooleanField(default=0)

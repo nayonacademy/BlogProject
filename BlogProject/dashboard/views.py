@@ -3,6 +3,7 @@ from django.http import HttpResponse, HttpResponseRedirect
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import authenticate, login, logout
 from django.urls import reverse
+from django.contrib import messages
 from .models import *
 
 
@@ -48,14 +49,40 @@ def updatePost(request, pk):
 @login_required
 def newPost(request):
     if request.method == "GET":
-        return render(request, 'dashboard/create_post.html')
+        allcategory = Category.objects.filter(category_status='Active')
+        context = {
+            'category_list': allcategory
+        }
+        return render(request, 'dashboard/create_post.html', context)
 
     if request.method == "POST":
         title = request.POST.get('post_title', None)
         desc = request.POST.get("post_des", None)
-        print(title, desc)
-        BlogPost.objects.create(title=title, details=desc)
+        category_name = request.POST.get("category_name", None)
+        # print(title, desc,category_name)
+        BlogPost.objects.create(title=title, details=desc, category_id=category_name)
+        messages.success(request, 'Successfully Add new post')
         return HttpResponseRedirect(reverse('showallpost'))
+
+
+@login_required
+def postdelete(request, pk):
+    BlogPost.objects.filter(pk=pk).delete()
+    messages.info(request, 'Delete post')
+    return HttpResponseRedirect(reverse('showallpost'))
+
+
+@login_required
+def postupdate(request, pk):
+    if request.method == 'GET':
+        postdata = BlogPost.objects.filter(pk=pk)
+        print(postdata.first().category)
+        allcategory = Category.objects.filter(category_status='Active')
+        context = {
+            'post_data': postdata,
+            'category_list': allcategory
+        }
+        return render(request, 'dashboard/create_post.html', context)
 
 
 @login_required
@@ -73,6 +100,13 @@ def category(request):
             'category_data': category_data
         }
         return render(request, 'dashboard/create_category.html', context)
+
+
+@login_required
+def category_delete(request, pk):
+    category = Category.objects.filter(pk=pk).delete()
+    messages.info(request, 'Category Deleted !')
+    return HttpResponseRedirect(reverse('category'))
 
 
 @login_required
