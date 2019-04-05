@@ -10,26 +10,29 @@ from .models import *
 # Create your views here.
 
 def bloglogin(request):
-    if request.method == 'GET':
-        return render(request, 'dashboard/login.html')
-    elif request.method == 'POST':
+
+    if request.method == 'POST':
         username = request.POST.get('username', None)
         password = request.POST.get('password', None)
         user = authenticate(username=username, password=password)
         if user is not None:
             login(request, user)
+            messages.success(request,'Welcome Back')
             return HttpResponseRedirect(reverse('dashboard'))
         else:
+            messages.warning(request,'Invalid Credentials')
             return HttpResponseRedirect(reverse('login'))
+    else:
+        if request.user.is_authenticated:
+            return HttpResponseRedirect(reverse('dashboard'))
+        return render(request, 'dashboard/login.html')        
 
 
 @login_required
 def bloglogout(request):
     logout(request)
-    context = {
-        'message': 'Successfully Logout'
-    }
-    return render(request, 'dashboard/login.html', context)
+    messages.success(request, 'Logged Out Successfully')
+    return HttpResponseRedirect(reverse('login'))
 
 
 @login_required
