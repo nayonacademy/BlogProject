@@ -20,6 +20,7 @@
 
     <!-- Custom styles for this template-->
     <link href="{% static 'dashboard/css/sb-admin.css' %}" rel="stylesheet">
+    {% include 'layouts/css.html' %}
 
   </head>
 
@@ -29,9 +30,7 @@
       <div class="card card-login mx-auto mt-5">
         <div class="card-header">Login</div>
         <div class="card-body">
-          {% if message %}
-          <h4>{{message}}</h4>
-          {% endif %}
+
           <form action="" method="POST">
             {% csrf_token %}
             <div class="form-group">
@@ -62,7 +61,7 @@
 
     <!-- Core plugin JavaScript-->
     <script src="{% static 'dashboard/vendor/jquery-easing/jquery.easing.min.js' %}"></script>
-
+    {% include 'layouts/admin_js.html' %}
   </body>
 
 </html>
