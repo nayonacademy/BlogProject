@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404
 from django.http import HttpResponse, HttpResponseRedirect
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import authenticate, login, logout
@@ -10,22 +10,21 @@ from .models import *
 # Create your views here.
 
 def bloglogin(request):
-
     if request.method == 'POST':
         username = request.POST.get('username', None)
         password = request.POST.get('password', None)
         user = authenticate(username=username, password=password)
         if user is not None:
             login(request, user)
-            messages.success(request,'Welcome Back')
+            messages.success(request, 'Welcome Back')
             return HttpResponseRedirect(reverse('dashboard'))
         else:
-            messages.warning(request,'Invalid Credentials')
+            messages.warning(request, 'Invalid Credentials')
             return HttpResponseRedirect(reverse('login'))
     else:
         if request.user.is_authenticated:
             return HttpResponseRedirect(reverse('dashboard'))
-        return render(request, 'dashboard/login.html')        
+        return render(request, 'dashboard/login.html')
 
 
 @login_required
@@ -109,6 +108,19 @@ def category(request):
 def category_delete(request, pk):
     category = Category.objects.filter(pk=pk).delete()
     messages.info(request, 'Category Deleted !')
+    return HttpResponseRedirect(reverse('category'))
+
+
+@login_required
+def category_status(request, pk):
+    category_data = get_object_or_404(Category, pk=pk)
+    if category_data.category_status == 'Active':
+        category_data.category_status = 'Inactive'
+        messages.info(request, 'Category Status Changed Into Inactive !')
+    else:
+        category_data.category_status = 'Active'
+        messages.success(request, 'Category Status Changed Into Active !')
+    category_data.save()
     return HttpResponseRedirect(reverse('category'))
 
 
