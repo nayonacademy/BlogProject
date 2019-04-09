@@ -132,3 +132,4 @@ def settings(request):
 @login_required
 def dashboard(request):
     return render(request, 'dashboard/admin_home.html')
+
