@@ -1,4 +1,5 @@
 {% extends 'dashboard/base.html' %}
+{% load widget_tweaks %}
 {% block title %}Create Post{% endblock %}
 {% block content %}
 <ol class="breadcrumb">
@@ -14,27 +15,28 @@
     <div class="card">
     <form action="" method="POST">
         {% csrf_token %}
+
       <div class="card-body">
       <div class="form-group">
-        <div class="row">
-            <div class="col-sm-4">
             <label for="exampleInputEmail1">Post Title</label>
-            </div>
-            <div class="col-sm-8">
+            {{form.title|add_class:"form-control" }}
+            <!-- </div> -->
+            <!-- <div class="col-sm-8">
                 {% if post_data %}
                     <input name="post_title" type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" value="{{post_data.first.title}}">
                 {% else %}
                 <input name="post_title" type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
                 {% endif %}
-                    </div>
-        </div>
+                    </div> -->
+        <!-- </div> -->
        </div>
+       
        <div class="form-group">
-        <div class="row">
-            <div class="col-sm-4">
+        
             <label for="exampleInputEmail1">Category</label>
-            </div>
-            <div class="col-sm-8">
+            {{form.category|add_class:"form-control" }}
+            <!-- </div> -->
+            <!-- <div class="col-sm-8">
                 <select class="form-control" name="category_name" id="">
                     <option>Select Category</option>
                     {% for i in category_list %}
@@ -46,18 +48,19 @@
                     {% endfor %}
                 </select>
             </div>
-        </div>
+        </div> -->
        </div>
 
        <div class="form-group">
-        <div class="row">
-            <div class="col-sm-4">
+        <!-- <div class="row">
+            <div class="col-sm-4"> -->
             <label for="exampleInputEmail1">Post Description</label>
-            </div>
-            <div class="col-sm-8">
+            {{form.details|add_class:"form-control"}}
+            <!-- </div> -->
+            <!-- <div class="col-sm-8">
             <textarea name="post_des" type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">{%if post_data%} {{post_data.first.details}} {%endif%}</textarea>
             </div>
-        </div>
+        </div> -->
        </div>
        <!-- <div class="form-group">
         <div class="row">
