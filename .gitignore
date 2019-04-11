@@ -89,4 +89,3 @@ local_settings.py
 
 .env
 db.sqlite3
-BlogProject/db.sqlite3
