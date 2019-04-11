@@ -1,4 +1,5 @@
 {% extends 'dashboard/base.html' %}
+{% load widget_tweaks %}
 {% block title %}Category{% endblock %}
 {% load humanize %}
 {% block content %}
@@ -28,20 +29,22 @@
         {% csrf_token %}
           <div class="form-group">
             <label for="exampleInputEmail1">Category Name</label>
-            <input type="text" name="category_name" class="form-control" id="exampleInputEmail1" >
+            {{form.category_name|add_class:"form-control" }} 
+            <!-- <input type="text" name="category_name" class="form-control" id="exampleInputEmail1" > -->
           </div>
 
           <div class="form-group">
             <label for="exampleInputEmail1">Category Description</label>
-            <textarea class="form-control" name="category_description" id="exampleInputEmail1" ></textarea>
+            {{form.category_description|add_class:"form-control" }} 
           </div>
 
            <div class="form-group">
             <label for="exampleInputEmail1">Category Status</label>
-                    <select class="form-control" name="category_status">
+            {{form.category_status|add_class:"form-control" }}
+                    <!-- <select class="form-control" name="category_status">
                         <option>Active</option>
                         <option>Inactive</option>
-                    </select>
+                    </select> -->
           </div>
 
       </div>
@@ -99,7 +102,9 @@
                       <a href="{% url 'category_delete' category_data_value.id %}" onclick="return confirm('Are You Sure?')">
                         <button class="btn btn-danger">Delete</button>
                       </a>
+                      <a href="{% url 'category_update' category_data_value.id %}" >
                         <button class="btn btn-info">Edit</button>
+                      </a>
                         <a href="{% url 'category_status' category_data_value.id %}">
                             {% if category_data_value.category_status == 'Active' %}
                                 <button class="btn btn-warning">Inactive</button>
