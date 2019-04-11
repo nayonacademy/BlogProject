@@ -93,6 +93,7 @@ def category(request):
     if request.method == 'POST':
         form = CategoryForm(request.POST)
         print(form)
+        form.save()
         # category_name = request.POST.get('category_name', None)
         # category_description = request.POST.get('category_description', None)
         # category_status = request.POST.get('category_status', None)
@@ -100,9 +101,11 @@ def category(request):
         #                         category_status=category_status)
         return HttpResponseRedirect(reverse('category'))
     else:
+        form = CategoryForm(request.GET)
         category_data = Category.objects.all()
         context = {
-            'category_data': category_data
+            'category_data': category_data,
+            'form' : form
         }
         return render(request, 'dashboard/create_category.html', context)
 
