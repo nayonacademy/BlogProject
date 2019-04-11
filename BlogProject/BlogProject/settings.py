@@ -126,7 +126,7 @@ STATICFILES_DIRS = [
 ]
 
 # All settings common to all environments
-STATIC_ROOT = os.path.join(BASE_DIR, 'static')
+# STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 
 LOGIN_URL='/dashboard/login'
 LOGIN_REDIRECT_URL='/dashboard'

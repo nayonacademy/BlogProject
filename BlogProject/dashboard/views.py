@@ -5,6 +5,7 @@ from django.contrib.auth import authenticate, login, logout
 from django.urls import reverse
 from django.contrib import messages
 from .models import *
+from .forms.category import *
 
 
 # Create your views here.
@@ -90,11 +91,13 @@ def postupdate(request, pk):
 @login_required
 def category(request):
     if request.method == 'POST':
-        category_name = request.POST.get('category_name', None)
-        category_description = request.POST.get('category_description', None)
-        category_status = request.POST.get('category_status', None)
-        Category.objects.create(category_name=category_name, category_description=category_description,
-                                category_status=category_status)
+        form = CategoryForm(request.POST)
+        print(form)
+        # category_name = request.POST.get('category_name', None)
+        # category_description = request.POST.get('category_description', None)
+        # category_status = request.POST.get('category_status', None)
+        # Category.objects.create(category_name=category_name, category_description=category_description,
+        #                         category_status=category_status)
         return HttpResponseRedirect(reverse('category'))
     else:
         category_data = Category.objects.all()
