@@ -36,9 +36,10 @@
             </div>
             <div class="col-sm-8">
                 <select class="form-control" name="category_name" id="">
+                    <option>Select Category</option>
                     {% for i in category_list %}
-                        {% if post_data.first.category.id == i.id %}
-                        <option value="{{i.id}}">{{i.category_name}}</option>
+                        {% if post_data.first.category_id == i.id %}
+                        <option selected value="{{i.id}}">{{i.category_name}}</option>
                         {% else %}
                         <option value="{{i.id}}">{{i.category_name}}</option>
                         {% endif %}
