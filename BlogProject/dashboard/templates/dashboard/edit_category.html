@@ -1,0 +1,40 @@
+{% extends 'dashboard/base.html' %}
+{% load widget_tweaks %}
+{% block title %}Category{% endblock %}
+{% load humanize %}
+{% block content %}
+<ol class="breadcrumb">
+          <li class="breadcrumb-item">
+            <a href="#">Dashboard</a>
+          </li>
+          <li class="breadcrumb-item active">Overview</li>
+        </ol>
+<!-- Button trigger modal -->
+      <div class="modal-body">
+      <form action="" method="POST">
+        {% csrf_token %}
+          <div class="form-group">
+            <label for="exampleInputEmail1">Category Name</label>
+            {{form.category_name|add_class:"form-control" }} 
+            <!-- <input type="text" name="category_name" class="form-control" id="exampleInputEmail1" > -->
+          </div>
+
+          <div class="form-group">
+            <label for="exampleInputEmail1">Category Description</label>
+            {{form.category_description|add_class:"form-control" }} 
+          </div>
+
+           <div class="form-group">
+            <label for="exampleInputEmail1">Category Status</label>
+            {{form.category_status|add_class:"form-control" }}
+          </div>
+          <button type="submit" name="submit" class="btn btn-info">Update</button>
+      </div>
+       
+      </div>
+    </div>
+    </form>
+
+
+
+{% endblock content%}
