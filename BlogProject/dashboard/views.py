@@ -6,6 +6,7 @@ from django.urls import reverse
 from django.contrib import messages
 from .models import *
 from .forms.category import *
+from .forms.post import *
 
 
 # Create your views here.
@@ -52,19 +53,27 @@ def updatePost(request, pk):
 @login_required
 def newPost(request):
     if request.method == "GET":
+        form =BlogPostForm()
         allcategory = Category.objects.filter(category_status='Active')
         context = {
-            'category_list': allcategory
+            'category_list': allcategory,
+            'form': form
         }
-        return render(request, 'dashboard/create_post.html', context)
+        return render(request, 'dashboard/create_post.html',context)
 
     if request.method == "POST":
-        title = request.POST.get('post_title', None)
-        desc = request.POST.get("post_des", None)
-        category_name = request.POST.get("category_name", None)
+        form = BlogPostForm(request.POST)
+        print(form)
+        form.save()
+       
+            
+        #     
+        # title = request.POST.get('post_title', None)
+        # desc = request.POST.get("post_des", None)
+        # category_name = request.POST.get("category_name", None)
         # print(title, desc,category_name)
-        BlogPost.objects.create(title=title, details=desc, category_id=category_name)
-        messages.success(request, 'Successfully Add new post')
+        # BlogPost.objects.create(title=title, details=desc, category_id=category_name)
+        # messages.success(request, 'Successfully Add new post')
         return HttpResponseRedirect(reverse('showallpost'))
 
 
@@ -98,7 +107,7 @@ def category(request):
         # category_description = request.POST.get('category_description', None)
         # category_status = request.POST.get('category_status', None)
         # Category.objects.create(category_name=category_name, category_description=category_description,
-        #                         category_status=category_status)
+        # category_status=category_status)
         return HttpResponseRedirect(reverse('category'))
     else:
         form = CategoryForm()
