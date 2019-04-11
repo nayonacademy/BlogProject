@@ -104,7 +104,22 @@ def category(request):
         }
         return render(request, 'dashboard/create_category.html', context)
 
+def category_update(request,pk):
+    if request.method == 'POST':
+       
+        category_data=get_object_or_404(Category,pk=pk)
+        form=CategoryForm(request.POST,instance=category_data)
+        form.save()
+        return HttpResponseRedirect(reverse('category'))
+    if request.method == 'GET':
+        category=get_object_or_404(Category,pk=pk)
+        form=CategoryForm(request.POST or None,instance=category)
+        # print(form)
+        context={
+            'form':form
+        }
 
+        return render(request,'dashboard/category_edit.html',context)    
 @login_required
 def category_edit(request,pk):
     data=get_object_or_404(Category,pk=pk)
