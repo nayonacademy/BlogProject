@@ -1,5 +1,5 @@
 from django.urls import path
-from . import views
+from dashboard import views
 urlpatterns = [
     path('login', views.bloglogin, name="login"),
     path('logout', views.bloglogout, name="logout"),

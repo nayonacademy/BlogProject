@@ -1,5 +1,6 @@
 {% extends 'dashboard/base.html' %}
-{% block title %}Create Post{% endblock %}
+{% load widget_tweaks %}
+{% block title %}Update Post{% endblock %}
 {% block content %}
 <ol class="breadcrumb">
           <li class="breadcrumb-item">
@@ -12,40 +13,56 @@
     <div class="col-sm-2"></div>
     <div class="col-sm-8">
     <div class="card">
+    <form action="" method="POST">
+        {% csrf_token %}
+
       <div class="card-body">
       <div class="form-group">
-        <div class="row">
-            <div class="col-sm-4">
             <label for="exampleInputEmail1">Post Title</label>
-            </div>
-            <div class="col-sm-8">
-                        <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
-            </div>
-        </div>
+            {{form.title|add_class:"form-control" }}
+            <!-- </div> -->
+            <!-- <div class="col-sm-8">
+                {% if post_data %}
+                    <input name="post_title" type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" value="{{post_data.first.title}}">
+                {% else %}
+                <input name="post_title" type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
+                {% endif %}
+                    </div> -->
+        <!-- </div> -->
        </div>
-
+       
        <div class="form-group">
-        <div class="row">
-            <div class="col-sm-4">
+        
             <label for="exampleInputEmail1">Category</label>
+            {{form.category|add_class:"form-control" }}
+            <!-- </div> -->
+            <!-- <div class="col-sm-8">
+                <select class="form-control" name="category_name" id="">
+                    <option>Select Category</option>
+                    {% for i in category_list %}
+                        {% if post_data.first.category_id == i.id %}
+                        <option selected value="{{i.id}}">{{i.category_name}}</option>
+                        {% else %}
+                        <option value="{{i.id}}">{{i.category_name}}</option>
+                        {% endif %}
+                    {% endfor %}
+                </select>
             </div>
-            <div class="col-sm-8">
-                 <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
-            </div>
-        </div>
+        </div> -->
        </div>
 
        <div class="form-group">
-        <div class="row">
-            <div class="col-sm-4">
+        <!-- <div class="row">
+            <div class="col-sm-4"> -->
             <label for="exampleInputEmail1">Post Description</label>
+            {{form.details|add_class:"form-control"}}
+            <!-- </div> -->
+            <!-- <div class="col-sm-8">
+            <textarea name="post_des" type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">{%if post_data%} {{post_data.first.details}} {%endif%}</textarea>
             </div>
-            <div class="col-sm-8">
-                        <textarea type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp"></textarea>
-            </div>
-        </div>
+        </div> -->
        </div>
-       <div class="form-group">
+       <!-- <div class="form-group">
         <div class="row">
             <div class="col-sm-4">
             <label for="exampleInputEmail1">Post Status</label>
@@ -57,10 +74,10 @@
                         </select>
             </div>
         </div>
-       </div>
+       </div> -->
 
 
-       <div class="form-group">
+       <!-- <div class="form-group">
         <div class="row">
             <div class="col-sm-4">
             <label for="exampleInputEmail1">Post Date</label>
@@ -69,20 +86,21 @@
                  <input type="date" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
             </div>
         </div>
-       </div>
+       </div> -->
 
        <div class="form-group">
         <div class="row">
             <div class="col-sm-6">
             </div>
             <div class="col-sm-6">
-                <button class="btn btn-success">Update </button>
+                <button type="submit" class="btn btn-success">Update</button>
             </div>
         </div>
        </div>
 
 
       </div>
+      </form>
     </div>
     </div>
     <div class="col-sm-2"></div>

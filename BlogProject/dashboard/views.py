@@ -47,7 +47,15 @@ def showAllpost(request):
 
 @login_required
 def updatePost(request, pk):
-    return render(request, 'dashboard/update_post.html')
+    post=get_object_or_404(BlogPost,pk)
+    if request.method == "GET":
+        form=BlogPostForm(instance=post)
+        context={
+        'form': form
+        }
+        return render(request, 'dashboard/update_post.html')
+
+    
 
 
 @login_required
@@ -86,16 +94,22 @@ def postdelete(request, pk):
 
 @login_required
 def postupdate(request, pk):
-    if request.method == 'GET':
-        postdata = BlogPost.objects.filter(pk=pk)
-        print(postdata.first().category)
-        allcategory = Category.objects.filter(category_status='Active')
-        context = {
-            'post_data': postdata,
-            'category_list': allcategory
+    post=get_object_or_404(BlogPost,pk=pk)
+    if request.method == "GET":
+        form=BlogPostForm(instance=post)
+        context={
+        'form': form
         }
-        return render(request, 'dashboard/create_post.html', context)
-
+        return render(request, 'dashboard/update_post.html',context)
+    elif request.method == "POST":
+        form=BlogPostForm(request.POST,instance=post)
+        if form.is_valid():
+            post.save()
+            messages.info(request,'postupdate Successfully !')
+            return HttpResponseRedirect(reverse('showallpost'))
+        else:
+            messages.info(request,'this post will not updatePost.')
+            return HttpResponseRedirect(reverse('showallpost'))
 
 @login_required
 def category(request):
@@ -103,14 +117,14 @@ def category(request):
         form = CategoryForm(request.POST)
         if form.is_valid():
             form.save()
-<<<<<<< HEAD
-        # category_name = request.POST.get('category_name', None)
-        # category_description = request.POST.get('category_description', None)
-        # category_status = request.POST.get('category_status', None)
-        # Category.objects.create(category_name=category_name, category_description=category_description,
-        # category_status=category_status)
-=======
->>>>>>> development
+# <<<<<<< HEAD
+#         # category_name = request.POST.get('category_name', None)
+#         # category_description = request.POST.get('category_description', None)
+#         # category_status = request.POST.get('category_status', None)
+#         # Category.objects.create(category_name=category_name, category_description=category_description,
+#         # category_status=category_status)
+# =======
+# >>>>>>> development
         return HttpResponseRedirect(reverse('category'))
     else:
         form = CategoryForm()
