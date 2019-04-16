@@ -1,0 +1,9 @@
+version: '3.7'
+services:
+  blogproject:
+    build: .
+    command: python3 /BlogProject/BlogProject/manage.py runserver 0.0.0.0:8000
+    volumes:
+      - .:/BlogProject
+    ports:
+      - "8000:8000"
