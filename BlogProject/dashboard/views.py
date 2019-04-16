@@ -127,6 +127,22 @@ def category(request):
         }
         return render(request, 'dashboard/create_category.html', context)
 
+<<<<<<< HEAD
+def category_update(request,pk):
+    category=get_object_or_404(Category,pk=pk)
+    if request.method == 'POST':
+        form=CategoryForm(request.POST,instance=category)
+        if form.is_valid():
+            form.save()
+            return HttpResponseRedirect(reverse('category'))
+    if request.method == 'GET':
+        form=CategoryForm(instance=category)
+    context={
+            'form':form
+          }
+
+    return render(request,'dashboard/category_edit.html',context)    
+=======
 # def category_update(request,pk):
 #     if request.method == 'POST':
        
@@ -159,6 +175,7 @@ def category_edit(request,pk):
     }
     return render(request, 'dashboard/edit_category.html',context) 
 
+>>>>>>> master
 @login_required
 def category_delete(request, pk):
     category = Category.objects.filter(pk=pk).delete()

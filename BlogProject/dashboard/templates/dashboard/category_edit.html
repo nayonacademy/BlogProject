@@ -14,27 +14,51 @@
     <div class="col-sm-2"></div>
     <div class="col-sm-8">
         <div class="modal-body">
-            
+
         <form action="" method="POST">
             {% csrf_token %}
               <div class="form-group">
                 <label for="exampleInputEmail1">Category Name</label>
-                {{form.category_name|add_class:"form-control" }} 
-                <!-- <input type="text" name="category_name" class="form-control" id="exampleInputEmail1" > -->
+                {% if form.is_bound %}
+                   {% if form.category_name.errors %}
+                     {{form.category_name|add_class:"form-control is-invalid"  }} 
+                      <div class="invalid-feedback">{{ form.category_name.errors }}</div>
+
+                    {% else %}
+                       {{form.category_name|add_class:"form-control is-valid"  }} 
+                    {% endif %}
+                  {% else %}
+                  {{form.category_name|add_class:"form-control"  }} 
+                  {% endif %}
               </div>
-    
               <div class="form-group">
                 <label for="exampleInputEmail1">Category Description</label>
-                {{form.category_description|add_class:"form-control" }} 
+                {% if form.is_bound %}
+                   {% if form.category_description.errors %}
+                     {{form.category_description|add_class:"form-control is-invalid" }} 
+                     <div class="invalid-feedback">{{ form.category_description.errors }}</div>
+                   {% else %}
+                     {{form.category_description|add_class:"form-control is-valid"  }} 
+                   {% endif %}
+                {% else %} 
+                    {{form.category_description|add_class:"form-control "  }}  
+                {% endif %}
+
               </div>
     
                <div class="form-group">
                 <label for="exampleInputEmail1">Category Status</label>
-                {{form.category_status|add_class:"form-control" }}
-                        <!-- <select class="form-control" name="category_status">
-                            <option>Active</option>
-                            <option>Inactive</option>
-                        </select> -->
+                {% if form.is_bound %}
+                   {% if form.category_status.errors %}
+                      {{form.category_status|add_class:"form-control is-invalid" }}
+                      <div class="invalid-feedback">{{ form.category_status.errors }}</div>
+                   {% else %}
+                      {{form.category_status|add_class:"form-control is-valid" }}
+                   {% endif %}
+                {% else %} 
+                {{form.category_status|add_class:"form-control " }}
+                {% endif %}   
+                      
               </div>
     
           </div>
