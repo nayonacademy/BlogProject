@@ -1,7 +1,8 @@
 .vscode
 venv
 # Created by https://www.gitignore.io
-
+# Ignore JetBrains RubyMine IDE settings
+/.idea
 ### OSX ###
 .DS_Store
 .AppleDouble
@@ -86,6 +87,11 @@ target/
 *.pyc
 __pycache__/
 local_settings.py
+# Ignore OSX folder attributes
+.DS_Store
 
 .env
 db.sqlite3
+*db.sqlite3
+BlogProject/db.sqlite3
+*.sqlite3

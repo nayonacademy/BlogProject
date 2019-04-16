@@ -102,11 +102,8 @@
                       <a href="{% url 'category_delete' category_data_value.id %}" onclick="return confirm('Are You Sure?')">
                         <button class="btn btn-danger">Delete</button>
                       </a>
-<<<<<<< HEAD
-                      <a href="{% url 'category_update' category_data_value.id %}" >
-                        <button class="btn btn-info">Edit</button>
-                      </a>
-=======
+
+                      
 
 
                       <a href="{% url 'category_edit' category_data_value.id %}">
@@ -115,7 +112,6 @@
 
 
 
->>>>>>> master
                         <a href="{% url 'category_status' category_data_value.id %}">
                             {% if category_data_value.category_status == 'Active' %}
                                 <button class="btn btn-warning">Inactive</button>
